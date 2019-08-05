@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Header from "./Header";
 
 export default class App extends Component {
   constructor() {
@@ -7,11 +8,17 @@ export default class App extends Component {
     this.state = { userName: "" };
   }
 
+  changeNameHandler = e => this.setState({ userName: e.target.value });
+
   render() {
     return (
       <div>
-        <h1>Hello</h1>
-        <p>From React</p>
+        <div>
+          <Header
+            user={this.state.userName}
+            onChange={this.changeNameHandler}
+          />
+        </div>
       </div>
     );
   }
