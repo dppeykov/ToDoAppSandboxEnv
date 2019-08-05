@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./Header";
 import Counters from "./Counters";
+import ToDoInput from "./ToDoInput";
 
 export default class App extends Component {
   constructor() {
@@ -36,6 +37,7 @@ export default class App extends Component {
             itemsDone={itemsDone}
             itemsLeft={todoItems.length - itemsDone}
           />
+          <ToDoInput />
         </div>
       </div>
     );
