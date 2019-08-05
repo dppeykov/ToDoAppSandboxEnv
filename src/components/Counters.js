@@ -8,7 +8,7 @@ const Counters = ({ itemsDone, itemsLeft }) => (
     </div>
     <div className="btn btn-warning w-50 m-1">
       {`Left to do `}
-      <span class="badge badge-light ml-2">{itemsLeft}</span>
+      <span className="badge badge-light ml-2">{itemsLeft}</span>
     </div>
   </div>
 );
