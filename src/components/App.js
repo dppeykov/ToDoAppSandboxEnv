@@ -10,24 +10,34 @@ export default class App extends Component {
 
     this.state = {
       todoItems: [],
-      userName: ""
+      userName: "",
+      newTextValue: "",
+      noInputButClicked: false //use to track if there is something written
     };
   }
 
   changeNameHandler = e => this.setState({ userName: e.target.value });
 
+  savingNewTasksText = e => this.setState({ newTextValue: e.target.value });
+
   addingMoreTasksHandler = e => {
-    let newItem = {
-      action: Math.random().toString() + " TEXT",
-      done: false,
-      id: Math.floor(Math.random() * 100000000000000)
-    };
-    this.setState({ todoItems: [...this.state.todoItems, newItem] });
-    console.log(this.state);
+    if (this.state.newTextValue === "") {
+      this.setState({ noInputButClicked: true });
+    } else {
+      let newItem = {
+        action: this.state.newTextValue,
+        done: false,
+        id: Math.floor(Math.random() * 100000000000000)
+      };
+      this.setState({
+        todoItems: [...this.state.todoItems, newItem],
+        newTextValue: ""
+      });
+    }
   };
 
   render() {
-    let { userName, todoItems } = this.state;
+    let { userName, todoItems, newTextValue } = this.state;
 
     let itemsDone = todoItems.reduce((acc, item) => {
       return item.done ? acc + 1 : acc + 0;
@@ -43,7 +53,13 @@ export default class App extends Component {
             itemsDone={itemsDone}
             itemsLeft={todoItems.length - itemsDone}
           />
-          <ToDoInput onClick={this.addingMoreTasksHandler} />
+          <ToDoInput
+            onClick={this.addingMoreTasksHandler}
+            onChange={this.savingNewTasksText}
+            currentText={newTextValue}
+          />
+          {/* here you'll neer to add an additional component that will render the alert if no input,
+                  it will take the TaskList and also if on deletion you'll need something*/}
           <TaskList allTasks={todoItems} />
         </div>
       </div>
