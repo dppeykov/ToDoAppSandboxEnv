@@ -4,6 +4,7 @@ import Counters from "./Counters";
 import ToDoInput from "./ToDoInput";
 import AllDone from "./AllDone";
 import AlertIfEmpty from "./AlertIfEmpty";
+import ListOfToDos from "./ListOfToDos";
 
 export default class App extends Component {
   constructor() {
@@ -61,7 +62,11 @@ export default class App extends Component {
             currentText={newTextValue}
           />
           <AlertIfEmpty input={noInputButClicked} />
-          {todoItems ? <AllDone /> : null}
+          {todoItems.length === 0 ? (
+            <AllDone />
+          ) : (
+            <ListOfToDos all={todoItems} />
+          )}
         </div>
       </div>
     );
