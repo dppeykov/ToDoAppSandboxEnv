@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Header from "./Header";
 import Counters from "./Counters";
 import ToDoInput from "./ToDoInput";
-import TaskList from "./TaskList";
+import AllDone from "./AllDone";
+import AlertIfEmpty from "./AlertIfEmpty";
 
 export default class App extends Component {
   constructor() {
@@ -59,14 +60,8 @@ export default class App extends Component {
             onChange={this.savingNewTasksText}
             currentText={newTextValue}
           />
-          {noInputButClicked ? (
-            <div className="container mt-3 alert alert-danger text-center">
-              Ooops, no text provided! Please fill in the to do item field
-              above!
-            </div>
-          ) : null}
-
-          <TaskList allTasks={todoItems} />
+          <AlertIfEmpty input={noInputButClicked} />
+          {todoItems ? <AllDone /> : null}
         </div>
       </div>
     );
