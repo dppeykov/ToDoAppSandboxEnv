@@ -12,8 +12,18 @@ export default class App extends Component {
 
     this.state = {
       todoItems: [
-        { action: "ITEM 1", done: false, id: 4 },
-        { action: "ITEM 2", done: true, id: 5 }
+        {
+          action: "Some text here - could be long or short- doesn't matter",
+          done: false,
+          id: 4
+        }
+      ],
+      doneItems: [
+        {
+          action: "Another text here - could be long or short- doesn't matter",
+          done: true,
+          id: 5
+        }
       ],
       userName: "",
       newTextValue: "",
@@ -24,6 +34,22 @@ export default class App extends Component {
   changeNameHandler = e => this.setState({ userName: e.target.value });
 
   savingNewTasksText = e => this.setState({ newTextValue: e.target.value });
+
+  handlingStatusChange = idx => {
+    let clickedItem = this.state.todoItems.filter(item => item.id === idx);
+    clickedItem[0].done = clickedItem.done ? false : true;
+    console.log(clickedItem);
+    console.log("Before the change:", this.state.doneItems);
+    this.setState({ doneItems: [...this.state.doneItems, clickedItem] });
+    console.log("After the change:", this.state.doneItems);
+
+    let allButTheClicked = this.state.todoItems.filter(
+      item => item.id !== idx && item.done !== true
+    );
+    this.setState({
+      todoItems: allButTheClicked
+    });
+  };
 
   addingMoreTasksHandler = e => {
     if (this.state.newTextValue === "") {
@@ -43,7 +69,13 @@ export default class App extends Component {
   };
 
   render() {
-    let { userName, todoItems, newTextValue, noInputButClicked } = this.state;
+    let {
+      userName,
+      todoItems,
+      doneItems,
+      newTextValue,
+      noInputButClicked
+    } = this.state;
 
     let itemsDone = todoItems.reduce((acc, item) => {
       return item.done ? acc + 1 : acc + 0;
@@ -68,7 +100,11 @@ export default class App extends Component {
           {todoItems.length === 0 ? (
             <AllDone />
           ) : (
-            <ListOfToDos all={todoItems} />
+            <ListOfToDos
+              toDo={todoItems}
+              done={doneItems}
+              handlingStatusChange={this.handlingStatusChange}
+            />
           )}
         </div>
       </div>
