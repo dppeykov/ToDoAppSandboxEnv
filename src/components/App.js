@@ -11,7 +11,10 @@ export default class App extends Component {
     super();
 
     this.state = {
-      todoItems: [],
+      todoItems: [
+        { action: "ITEM 1", done: false, id: 4 },
+        { action: "ITEM 2", done: true, id: 5 }
+      ],
       userName: "",
       newTextValue: "",
       noInputButClicked: false
