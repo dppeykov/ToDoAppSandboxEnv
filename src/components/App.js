@@ -12,7 +12,7 @@ export default class App extends Component {
       todoItems: [],
       userName: "",
       newTextValue: "",
-      noInputButClicked: false //use to track if there is something written
+      noInputButClicked: false
     };
   }
 
@@ -31,13 +31,14 @@ export default class App extends Component {
       };
       this.setState({
         todoItems: [...this.state.todoItems, newItem],
-        newTextValue: ""
+        newTextValue: "",
+        noInputButClicked: false
       });
     }
   };
 
   render() {
-    let { userName, todoItems, newTextValue } = this.state;
+    let { userName, todoItems, newTextValue, noInputButClicked } = this.state;
 
     let itemsDone = todoItems.reduce((acc, item) => {
       return item.done ? acc + 1 : acc + 0;
@@ -58,8 +59,13 @@ export default class App extends Component {
             onChange={this.savingNewTasksText}
             currentText={newTextValue}
           />
-          {/* here you'll neer to add an additional component that will render the alert if no input,
-                  it will take the TaskList and also if on deletion you'll need something*/}
+          {noInputButClicked ? (
+            <div className="container mt-3 alert alert-danger text-center">
+              Ooops, no text provided! Please fill in the to do item field
+              above!
+            </div>
+          ) : null}
+
           <TaskList allTasks={todoItems} />
         </div>
       </div>

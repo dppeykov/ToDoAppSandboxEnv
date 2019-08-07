@@ -1,6 +1,4 @@
 import React from "react";
-import TaskDone from "./TaskDone";
-import TaskNotDone from "./TaskNotDone";
 
 const TaskList = ({ allTasks }) => (
   <div className="container">
@@ -23,17 +21,7 @@ const TaskList = ({ allTasks }) => (
           />
         </div>
       </div>
-    ) : (
-      allTasks.map(task => (
-        <div key={task.id}>
-          {task.done ? (
-            <TaskDone description={task.action} />
-          ) : (
-            <TaskNotDone description={task.action} />
-          )}
-        </div>
-      ))
-    )}
+    ) : null}
   </div>
 );
 
